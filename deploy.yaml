@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deploy-test
+  name: deploy-test
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: deploy-test
+  template:
+    metadata:
+      labels:
+        app: deploy-test
+    spec:
+      containers:
+        - image: httpd:alpine3.18
+          name: httpd
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
